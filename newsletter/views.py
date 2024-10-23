@@ -14,9 +14,7 @@ def index(request):
         form = OpportunityModelForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            print(form.cleaned_data)
             name = form.cleaned_data.get("name")
-            print(name)
             if not instance.name:
                 name = "New Opportunity"
                 instance.name = name
@@ -24,7 +22,6 @@ def index(request):
             messages.add_message(request, messages.SUCCESS, f'Thanks, {name}')
         else:
             for key, value in form.errors.items():
-                print(value)
                 messages.add_message(request, messages.ERROR, f'For {key}: {value}')
     return render(request, "newsletter/index.html", context)
 

@@ -5,6 +5,10 @@ class OpportunityModelForm(forms.ModelForm):
     class Meta:
         model = Opportunity
         fields = ["name", "email"]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
@@ -15,7 +19,7 @@ class OpportunityModelForm(forms.ModelForm):
     
     def clean_name(self):
         name = self.cleaned_data.get("name")
-        if " " not in name:
+        if name and " " not in name:
             raise forms.ValidationError("Please, enter first and last name separated by space.")
         return name
 
