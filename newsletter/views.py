@@ -3,7 +3,6 @@ from django.core.mail import send_mail
 from django.shortcuts import render
 from .forms import OpportunityModelForm
 from .forms import ContactForm
-# from .models import Opportunity
 from django.contrib import messages
 
 def index(request):
@@ -14,11 +13,6 @@ def index(request):
     if request.POST:
         form = OpportunityModelForm(request.POST)
         if form.is_valid():
-            # form_data = form.cleaned_data
-            # opportunity = Opportunity.objects.create(
-            #     email=form_data.get("email"),
-            #     name=form_data.get("name")
-            # )
             instance = form.save(commit=False)
             print(form.cleaned_data)
             name = form.cleaned_data.get("name")
